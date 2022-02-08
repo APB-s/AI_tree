@@ -25,7 +25,7 @@ def read_data():
     col_names = ['Buying', 'Maint', 'Nb_doors', 'Nb_place', 'Lug_capacity', 'Safety', 'Class_value']
 
     # read the data (stored locally)
-    data_car = pd.read_csv('/home/apb/Cours/AI/AI_tree/car.csv', delimiter=",", names=col_names)
+    data_car = pd.read_csv('/home/apb/Cours/AI/Project_AI/AI_tree/car.csv', delimiter=",", names=col_names)
     return data_car
 
 def traitement_donnee():
@@ -53,7 +53,7 @@ def decisiontree():
     X = data_car[feature_cols]
     y = data_car.Class_value
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.9, random_state=50)
 
     # data training
     clf = DecisionTreeClassifier()
@@ -93,7 +93,7 @@ def tree_printing():
     dot_data = StringIO()
     export_graphviz(clf, out_file=dot_data,
                     filled=True, rounded=True,
-                    special_characters=True, feature_names=feature_cols, class_names=['0', '1'])
+                    special_characters=True, feature_names=feature_cols, class_names=['Buying', 'Maint', 'Nb_doors', 'Nb_place', 'Lug_capacity', 'Safety', 'Class_value'])
     graph = pydotplus.graph_from_dot_data(dot_data.getvalue())
     graph.write_png('value_car_tree.png')
     Image(graph.create_png())
@@ -101,4 +101,4 @@ def tree_printing():
 
 
 decisiontree()
-#tree_printing()
+tree_printing()
